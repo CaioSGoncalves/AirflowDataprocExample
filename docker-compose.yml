@@ -11,8 +11,12 @@ services:
     environment:
         - LOAD_EX=n
         - EXECUTOR=Local
-        # - FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
-        # - AIRFLOW__CORE__FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        # - AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT=google-cloud-platform://?extra__google_cloud_platform__key_path=/key_file.json&extra__google_cloud_platform__scope=https://www.googleapis.com/auth/cloud-platform&extra__google_cloud_platform__project=sincere-bongo-264115&extra__google_cloud_platform__num_retries=5
+        - AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT=google-cloud-platform://?extra__google_cloud_platform__key_path=/key_file.json&extra__google_cloud_platform__scope=https://www.googleapis.com/auth/cloud-platform&extra__google_cloud_platform__project=sincere-bongo-264115
+
+
+        - FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        - AIRFLOW__CORE__FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
         # docker run puckel/docker-airflow python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)"
 
     logging:
@@ -22,6 +26,7 @@ services:
     volumes:
         - ./dags:/usr/local/airflow/dags
         - ./requirements.txt:/requirements.txt
+        - ./key_file.json:/key_file.json
         # - ./plugins:/usr/local/airflow/plugins
     ports:
         - "8080:8080"
@@ -39,9 +44,9 @@ services:
         options:
             max-size: 10m
             max-file: "3"
-    volumes:
-    - airflow-postgres-volume:/var/lib/postgresql/data
+    # volumes:
+    # - airflow-postgres-volume:/var/lib/postgresql/data
 
 
-volumes:
-  airflow-postgres-volume:
+# volumes:
+#   airflow-postgres-volume:
