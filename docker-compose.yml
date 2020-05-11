@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+        
+  airflow-webserver:
+    container_name: "airflow-webserver"
+    image: puckel/docker-airflow
+    # restart: always
+    depends_on:
+        - postgres
+    environment:
+        - LOAD_EX=n
+        - EXECUTOR=Local
+        # - FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        # - AIRFLOW__CORE__FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        # docker run puckel/docker-airflow python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)"
+
+    logging:
+        options:
+            max-size: 10m
+            max-file: "3"
+    volumes:
+        - ./dags:/usr/local/airflow/dags
+        - ./requirements.txt:/requirements.txt
+        # - ./plugins:/usr/local/airflow/plugins
+    ports:
+        - "8080:8080"
+    command: webserver
+
+
+  postgres:
+    container_name: "postgres"
+    image: postgres:9.6
+    environment:
+        - POSTGRES_USER=airflow
+        - POSTGRES_PASSWORD=airflow
+        - POSTGRES_DB=airflow
+    logging:
+        options:
+            max-size: 10m
+            max-file: "3"
+    volumes:
+    - airflow-postgres-volume:/var/lib/postgresql/data
+
+
+volumes:
+  airflow-postgres-volume:
