@@ -1,0 +1,8 @@
+Create WorkflowTemplate
+gcloud dataproc workflow-templates create example --region southamerica-east1
+
+Configure WorkflowTemplate cluster
+gcloud dataproc workflow-templates set-managed-cluster example --region southamerica-east1 --master-machine-type n1-standard-2 --single-node --cluster-name test-cluster-template --bucket staging.sincere-bongo-264115.appspot.com
+
+Add job to WorkflowTemplate
+gcloud dataproc workflow-templates add-job pyspark --region southamerica-east1 --step-id run --workflow-template example gs://teste-caio/ETLPlatform/spark_job.py
