@@ -5,6 +5,14 @@ Using Apache Airflow for scheduling Cloud Dataproc Spark Jobs.
 <img src="images/design.png">
 </p>
 
+<p align="center"> 
+<img src="images/main_dag.png">
+</p>
+
+<p align="center"> 
+<img src="images/workflow_template_dag.png">
+</p>
+
 
 Airflow DataProc Operators:
 https://airflow.apache.org/docs/stable/_api/airflow/contrib/operators/dataproc_operator/index.html#module-airflow.contrib.operators.dataproc_operator
