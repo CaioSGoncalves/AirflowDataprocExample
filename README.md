@@ -14,5 +14,5 @@ Dataproc WorkflowTemplate:
 - Commands used to create the template are in ./commands.txt file.
 
 
-DAGS are in the folder ./dags/
+Airflow DAGs are in the folder ./dags/
 
